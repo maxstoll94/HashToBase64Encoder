@@ -31,7 +31,7 @@
                     </ul>
                     
                     <br />
-                    The source code for this online tool can be found on <a href="">Github</a>.
+                    The source code for this online tool can be found on <a href="https://github.com/maxstoll94/HashToBase64Encoder" target="_blank">Github</a>.
                 </p>
             </div>
         </div>
@@ -54,13 +54,13 @@
 @code {
     public class Model
     {
-        public string Input { get; set; } = "Test";
+        public string Input { get; set; } = "Paste your plain text here";
 
         public int CodePage { get; set; } = Encoding.ASCII.CodePage;
     }
 
     private Model model = new();
-    private string output { get; set; } = "";
+    private string output { get; set; } = "hRPPnkNxQRAYnZHkHkTeHzErPcWSsC3ac8gScu4DaYE=";
 
     private void HandleValidSubmit()
     {
