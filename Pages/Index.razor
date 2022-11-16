@@ -1,0 +1,76 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations;
+@using System.Security.Cryptography;
+@using System.Text;
+
+<PageTitle>Index</PageTitle>
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <div class="container px-4">
+        <div class="row row-cols-lg-auto justify-content-center">
+            <div class="col-12">
+                <h2>SHA256 Hash + Base64 Encoder</h2>
+            </div>
+        </div>
+
+        <div class="row gx-5 mt-5">
+            <div class="col" style="height: 750px">
+                <label>Input:</label>
+                <InputTextArea class="p-3 border bg-light h-100 w-100" style="resize: none" @bind-Value="model.Input" />
+            </div>
+            <div class="col" style="height: 250px">
+                <label>Output:</label>
+                <div class="p-3 border bg-light h-100">@output</div>
+                <p class="mt-5">
+                    This is simple online tool that does the following:
+
+                    <ul>
+                        <li>Decode the plain input text to bytes using the encoding format from the dropdown (default ASCII).</li>
+                        <li>Compute a SHA256 hash of these bytes.</li>
+                        <li>Encode the hashed bytes to their base64 string representation.</li>
+                    </ul>
+                    
+                    <br />
+                    The source code for this online tool can be found on <a href="">Github</a>.
+                </p>
+            </div>
+        </div>
+        <div class="row row-cols-lg-auto g-3 align-items-center justify-content-center mt-5">
+            <div class="col-12">
+                <button class="btn btn-primary btn-lg" type="submit">Generate</button>
+            </div>
+            <div class="col-12">
+                <InputSelect class="form-select form-select-sm" @bind-Value="model.CodePage">
+                    <option selected value="@Encoding.ASCII.CodePage">ASCII</option>
+                    <option value="@Encoding.UTF8.CodePage">UTF8</option>
+                </InputSelect>
+            </div>
+        </div>
+
+    </div>
+</EditForm>
+
+
+@code {
+    public class Model
+    {
+        public string Input { get; set; } = "Test";
+
+        public int CodePage { get; set; } = Encoding.ASCII.CodePage;
+    }
+
+    private Model model = new();
+    private string output { get; set; } = "";
+
+    private void HandleValidSubmit()
+    {
+        if (model.Input != null)
+        {
+            var bytes = Encoding.GetEncoding(model.CodePage).GetBytes(model.Input);
+
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(bytes);
+            output = Convert.ToBase64String(hashedBytes);
+        }
+    }
+}
