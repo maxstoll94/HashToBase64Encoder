@@ -13,8 +13,8 @@
             </div>
         </div>
 
-        <div class="row gx-5 mt-5">
-            <div class="col" style="height: 750px">
+        <div class="row gx-5 mt-4">
+            <div class="col" style="height: 700px">
                 <label>Input:</label>
                 <InputTextArea class="p-3 border bg-light h-100 w-100" style="resize: none" @bind-Value="model.Input" />
             </div>
@@ -54,13 +54,13 @@
 @code {
     public class Model
     {
-        public string Input { get; set; } = "Paste your plain text here";
+        public string Input { get; set; } = "Paste your plain text here!";
 
         public int CodePage { get; set; } = Encoding.ASCII.CodePage;
     }
 
     private Model model = new();
-    private string output { get; set; } = "hRPPnkNxQRAYnZHkHkTeHzErPcWSsC3ac8gScu4DaYE=";
+    private string output { get; set; } = "ljqTDtIp6Uve3ELS+5ru1SVsrlRTJSMaQ30cLcY5Wjw=";
 
     private void HandleValidSubmit()
     {
